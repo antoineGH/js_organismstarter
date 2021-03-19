@@ -32,8 +32,37 @@ const pAequorFactory = (specimenNum, dna) => {
 			console.log(`After Mutation - ${dna}`)
 			console.log(`--- End Mutate ---\n`)
 		},
+		compareDNA(specimen) {
+			console.log(`\n--- Compare DNA ---`)
+			console.log(`Specimen 1 ${this.dna}`)
+			console.log(`Specimen 2 ${specimen.dna}`)
+			let count = 0
+			for (let i = 0; i <= this.dna.length - 1; i++) {
+				if (this.dna[i] === specimen.dna[i]) {
+					count++
+				}
+			}
+			const percentageIdentical = ((count / 15) * 100).toFixed(2)
+			console.log(`${percentageIdentical}% DNA in common`)
+			console.log(`--- End Compare DNA ---\n`)
+			return percentageIdentical
+		},
+		willLikelySurvive() {
+			let count = 0
+			this.dna.forEach((element) => {
+				if (element === 'C' || element === 'G') {
+					count++
+				}
+			})
+			console.log(`Survival Chances : ${((count / this.dna.length) * 100).toFixed(2)}%`)
+			return (count / this.dna.length) * 100 >= 60
+		},
 	}
 }
 
 const spec1 = pAequorFactory(1, mockUpStrand())
-spec1.mutate()
+const spec2 = pAequorFactory(2, mockUpStrand())
+
+// spec1.mutate()
+// console.log(spec1.compareDNA(spec2))
+console.log(spec1.willLikelySurvive())
